@@ -66,6 +66,8 @@
         const startButton = document.getElementById('startButton');
         const videoElement = document.getElementById('video');
 
+        let currentStream;
+
         async function getCameras() {
             const devices = await navigator.mediaDevices.enumerateDevices();
             const videoDevices = devices.filter(device => device.kind === 'videoinput');
@@ -95,14 +97,25 @@
             };
 
             try {
+                if (currentStream) {
+                    currentStream.getTracks().forEach(track => track.stop());
+                }
+
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
                 videoElement.srcObject = stream;
+                currentStream = stream;
             } catch (err) {
                 console.error('Error accessing the camera:', err);
             }
         }
 
         startButton.addEventListener('click', startCamera);
+
+        // Dynamically update the camera settings
+        cameraSelect.addEventListener('change', startCamera);
+        resolutionSelect.addEventListener('change', startCamera);
+        idealFrameRateInput.addEventListener('change', startCamera);
+        minFrameRateInput.addEventListener('change', startCamera);
 
         getCameras();
     </script>
