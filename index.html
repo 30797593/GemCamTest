@@ -6,60 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camera Selection and Settings</title>
     <style>
+        #cameraSelection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         #video {
-            width: 100%;
-            max-width: 100%;
-            margin-top: 20px;
+            object-fit: contain;
+            width: 800px;
+            height: 800px;
+            margin: 0 auto;
+            display: flex;
+            margin-bottom: 40px;
         }
     </style>
 </head>
 
 <body>
     <h1>Select Camera and Settings</h1>
-    <label for="cameraSelect">Camera:</label>
-    <select id="cameraSelect"></select>
-    <br><br>
-    <label for="resolutionSelect">Resolution:</label>
-    <select id="resolutionSelect">
-        <optgroup label="1:1">
-            <option value="1200x1200">1200x1200</option>
-            <option value="1536x1536">1536x1536</option>
-            <option value="1944x1944">1944x1944</option>
-            <option value="2160x2160">2160x2160</option>
-        </optgroup>
-        <optgroup label="4:3">
-            <option value="1600x1200">1600x1200</option>
-            <option value="2048x1536">2048x1536</option>
-            <option value="2592x1944">2592x1944</option>
-        </optgroup>
-        <optgroup label="16:9">
-            <option value="1920x1080">1920x1080</option>
-            <option value="3840x2160">3840x2160</option>
-        </optgroup>
-        <optgroup label="4:5">
-            <option value="1080x1350">1080x1350</option>
-            <option value="1728x2160">1728x2160</option>
-        </optgroup>
-        <optgroup label="9:16">
-            <option value="1080x1920">1080x1920</option>
-            <option value="1216x2160">1216x2160</option>
-        </optgroup>
-        <optgroup label="1.91:1">
-            <option value="2292x1200">2292x1200</option>
-            <option value="3840x2010">3840x2010</option>
-        </optgroup>
-    </select>
-    <br><br>
-    <label for="idealFrameRate">Ideal Frame Rate:</label>
-    <input type="number" id="idealFrameRate" value="30">
-    <br><br>
-    <label for="minFrameRate">Minimum Frame Rate:</label>
-    <input type="number" id="minFrameRate" value="25">
-    <br><br>
-    <button id="startButton">Start Camera</button>
-    <br><br>
-    <video id="video" autoplay playsinline></video>
-
+    <div id="cameraSelection">
+        <div id="cameraSettings">
+            <label for="cameraSelect">Camera:</label>
+            <select id="cameraSelect"></select>
+            <br><br>
+            <label for="resolutionSelect">Resolution:</label>
+            <select id="resolutionSelect">
+                <optgroup label="1:1">
+                    <option value="1200x1200">1200x1200</option>
+                    <option value="1536x1536">1536x1536</option>
+                    <option value="1944x1944">1944x1944</option>
+                    <option value="2160x2160">2160x2160</option>
+                </optgroup>
+                <optgroup label="4:3">
+                    <option value="1600x1200">1600x1200</option>
+                    <option value="2048x1536">2048x1536</option>
+                    <option value="2592x1944">2592x1944</option>
+                </optgroup>
+                <optgroup label="16:9">
+                    <option value="1920x1080">1920x1080</option>
+                    <option value="3840x2160">3840x2160</option>
+                </optgroup>
+                <optgroup label="4:5">
+                    <option value="1080x1350">1080x1350</option>
+                    <option value="1728x2160">1728x2160</option>
+                </optgroup>
+                <optgroup label="9:16">
+                    <option value="1080x1920">1080x1920</option>
+                    <option value="1216x2160">1216x2160</option>
+                </optgroup>
+                <optgroup label="1.91:1">
+                    <option value="2292x1200">2292x1200</option>
+                    <option value="3840x2010">3840x2010</option>
+                </optgroup>
+            </select>
+            <br><br>
+            <label for="idealFrameRate">Ideal Frame Rate:</label>
+            <input type="number" id="idealFrameRate" value="30">
+            <br><br>
+            <label for="minFrameRate">Minimum Frame Rate:</label>
+            <input type="number" id="minFrameRate" value="25">
+            <br><br>
+            <button id="startButton">Start Camera</button>
+        </div>
+        <video id="video" autoplay playsinline></video>
+    </div>
     <script>
         const cameraSelect = document.getElementById('cameraSelect');
         const resolutionSelect = document.getElementById('resolutionSelect');
@@ -151,10 +162,9 @@
         idealFrameRateInput.addEventListener('change', startCamera);
         minFrameRateInput.addEventListener('change', startCamera);
 
-        (async () => {
-            await checkCameraPermissions();
-            getCameras();
-        })();
+
+        await checkCameraPermissions();
+        getCameras();
     </script>
 </body>
 
