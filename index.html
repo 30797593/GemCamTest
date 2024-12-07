@@ -151,9 +151,10 @@
         idealFrameRateInput.addEventListener('change', startCamera);
         minFrameRateInput.addEventListener('change', startCamera);
 
-
-        await checkCameraPermissions();
-        getCameras();
+        (async () => {
+            await checkCameraPermissions();
+            getCameras();
+        })();
     </script>
 </body>
 
