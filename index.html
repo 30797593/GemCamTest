@@ -14,11 +14,8 @@
 
         #video {
             object-fit: contain;
-            width: 800px;
-            height: 800px;
-            margin: 0 auto;
-            display: flex;
-            margin-bottom: 40px;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -26,6 +23,7 @@
 <body>
     <h1>Select Camera and Settings</h1>
     <div id="cameraSelection">
+        <video id="video" autoplay playsinline></video>      
         <div id="cameraSettings">
             <label for="cameraSelect">Camera:</label>
             <select id="cameraSelect"></select>
@@ -69,7 +67,6 @@
             <br><br>
             <button id="startButton">Start Camera</button>
         </div>
-        <video id="video" autoplay playsinline></video>
     </div>
     <script>
         const cameraSelect = document.getElementById('cameraSelect');
@@ -163,8 +160,10 @@
         minFrameRateInput.addEventListener('change', startCamera);
 
 
-        await checkCameraPermissions();
-        getCameras();
+        (async () => {
+            await checkCameraPermissions();
+            getCameras();
+        })();
     </script>
 </body>
 
