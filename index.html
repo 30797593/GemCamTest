@@ -72,7 +72,14 @@
 
         async function checkCameraPermissions() {
             try {
-                startCamera();
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    audio: false,
+                    video: true,
+                });
+
+                const tracks = stream.getVideoTracks();
+                tracks.forEach((track) => track.stop());
+
                 const permission = await navigator.permissions.query({ name: 'camera' });
                 if (permission.state === 'granted') {
                     startCamera();
@@ -144,8 +151,9 @@
         idealFrameRateInput.addEventListener('change', startCamera);
         minFrameRateInput.addEventListener('change', startCamera);
 
+
+        await checkCameraPermissions();
         getCameras();
-        checkCameraPermissions();
     </script>
 </body>
 
