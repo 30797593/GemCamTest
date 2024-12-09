@@ -9,18 +9,26 @@
         #cameraSelection {
             display: flex;
             gap: 40px;
+            justify-content: center;
         }
 
         #video {
             object-fit: contain;
             width: 1000px;
-            height: 1000px;
+            height: auto;
+            border: 1px solid #dedede;
         }
+
+        #cameraSettings {
+            border: 1px solid #dedede;
+            padding: 10px; 
+        }
+
     </style>
 </head>
 
 <body>
-    <h1>Select Camera and Settings</h1>
+    <h1 style="text-align: center;">Select Camera and Settings</h1>
     <div id="cameraSelection">
         <video id="video" autoplay playsinline></video>      
         <div id="cameraSettings">
@@ -63,8 +71,6 @@
             <br><br>
             <label for="minFrameRate">Minimum Frame Rate:</label>
             <input type="number" id="minFrameRate" value="25">
-            <br><br>
-            <button id="startButton">Start Camera</button>
         </div>
     </div>
     <script>
