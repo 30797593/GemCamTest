@@ -119,7 +119,12 @@
             });
         }
 
-        async function startCamera() {
+        async function startCamera(type) {
+            if(currentStream && type!== "resolutionSelect"){
+                const tracks = stream.getVideoTracks();
+                tracks.forEach((track) => track.stop());
+            }
+
             const selectedCameraId = cameraSelect.value;
             const [width, height] = resolutionSelect.value.split('x').map(Number);
             const idealFrameRate = parseInt(idealFrameRateInput.value, 10);
@@ -135,7 +140,7 @@
             };
 
             try {
-                if (currentStream) {
+                if (currentStream && type === "resolutionSelect") {
                     const videoTracks = currentStream.getVideoTracks();
                     if (videoTracks.length > 0) {
                         await videoTracks[0].applyConstraints(constraints.video);
@@ -154,7 +159,7 @@
 
         // Dynamically update the camera settings
         cameraSelect.addEventListener('change', startCamera);
-        resolutionSelect.addEventListener('change', startCamera);
+        resolutionSelect.addEventListener('change',()=> startCamera("resolutionSelect"));
         idealFrameRateInput.addEventListener('change', startCamera);
         minFrameRateInput.addEventListener('change', startCamera);
 
