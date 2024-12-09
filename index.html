@@ -121,7 +121,7 @@
 
         async function startCamera(type) {
             if(currentStream && type!== "resolutionSelect"){
-                const tracks = stream.getVideoTracks();
+                const tracks = currentStream.getVideoTracks();
                await tracks.forEach((track) => track.stop());
             }
 
